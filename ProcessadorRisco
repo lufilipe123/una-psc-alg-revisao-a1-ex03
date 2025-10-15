@@ -1,0 +1,66 @@
+public class ProcessadorRisco {
+    public static void main(String[] args) {
+        int[] notasRisco = {15, 85, 42, 67, 90, 5, 78, 33, 95, 60, 25, 88, 10, 72, 50};
+        
+        double somaPonderada = 0;
+        int somaPesos = 0;
+        
+        for (int i = 0; i < notasRisco.length; i++) {
+            int peso;
+            
+            if (i >= 0 && i <= 4) {
+                peso = 3;
+            } else {
+                peso = 1;
+            }
+            
+            somaPonderada += notasRisco[i] * peso;
+            somaPesos += peso;
+        }
+        
+        double mediaPonderada = somaPonderada / somaPesos;
+        
+        int countOtimistas = 0;
+        int countAlarmantes = 0;
+        
+        for (int nota : notasRisco) {
+            if (nota <= 20) {
+                countOtimistas++; 
+            }
+            
+            if (nota >= 90) {
+                countAlarmantes++; 
+            }
+        }
+        
+        String parecerFinal;
+        
+        if (mediaPonderada > 70) {
+            parecerFinal = "Alto Risco: Venda ou reajuste de portfólio recomendado.";
+        } else if (mediaPonderada >= 40 && mediaPonderada <= 70) {
+            parecerFinal = "Risco Moderado: Acompanhar de perto, mas manter os ativos.";
+        } else {
+            parecerFinal = "Baixo Risco: Excelente momento para capitalização.";
+        }
+        
+        System.out.println("PROCESSADOR DE RISCO - RELATÓRIO FINAL");
+        System.out.println();
+        
+        System.out.println("DADOS DAS NOTAS DE RISCO:");
+        for (int i = 0; i < notasRisco.length; i++) {
+            String senioridade = (i <= 4) ? "Sênior (Peso 3)" : "Júnior (Peso 1)";
+            System.out.printf("Analista %2d [%s]: Nota %3d\n", i + 1, senioridade, notasRisco[i]);
+        }
+        
+        System.out.println();
+        System.out.println("CÁLCULOS ESTATÍSTICOS:");
+        System.out.printf("Média Ponderada do Risco: %.2f\n", mediaPonderada);
+        System.out.printf("Analistas 'Otimistas' (nota ≤ 20): %d\n", countOtimistas);
+        System.out.printf("Analistas 'Alarmantes' (nota ≥ 90): %d\n", countAlarmantes);
+        
+        System.out.println();
+        System.out.println("PARECER FINAL:");
+        System.out.println(parecerFinal);
+        
+    }
+}
